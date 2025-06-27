@@ -11,6 +11,7 @@ import (
 
 	"urlshortener/cmd"
 	"urlshortener/internal/api"
+	"urlshortener/internal/models"
 	"urlshortener/internal/monitor"
 	"urlshortener/internal/repository"
 	"urlshortener/internal/services"
@@ -47,18 +48,19 @@ puis lance le serveur HTTP.`,
 		linkRepo := repository.NewLinkRepository(db)
 		clickRepo := repository.NewClickRepository(db)
 
+		// Laissez le log
 		log.Println("Repositories initialisés.")
 
 		// TODO : Initialiser les services métiers.
 		linkService := services.NewLinkService(linkRepo)
-		clickService := services.NewClickService(clickRepo)
+		// clickService := services.NewClickService(clickRepo)
 
 		// Laissez le log
 		log.Println("Services métiers initialisés.")
 
 		// TODO : Initialiser le channel ClickEventsChannel (api/handlers) des événements de clic et lancer les workers (StartClickWorkers).
-		api.ClickEventsChannel = make(chan services.ClickEvent, cfg.Analytics.BufferSize)
-		go workers.StartClickWorker(api.ClickEventsChannel, clickService)
+		api.ClickEventsChannel = make(chan models.ClickEvent, cfg.Analytics.BufferSize)
+		workers.StartClickWorkers(cfg.Analytics.BufferSize, api.ClickEventsChannel, clickRepo)
 
 		// TODO : Remplacer les XXX par les bonnes variables
 		log.Printf("Channel d'événements de clic initialisé avec un buffer de %d. %d worker(s) de clics démarré(s).",
