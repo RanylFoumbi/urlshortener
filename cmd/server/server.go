@@ -47,7 +47,6 @@ puis lance le serveur HTTP.`,
 		linkRepo := repository.NewLinkRepository(db)
 		clickRepo := repository.NewClickRepository(db)
 
-		// Laissez le log
 		log.Println("Repositories initialisés.")
 
 		// TODO : Initialiser les services métiers.
