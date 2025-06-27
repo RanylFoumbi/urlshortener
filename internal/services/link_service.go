@@ -84,7 +84,7 @@ func (s *LinkService) CreateLink(longURL string) (*models.Link, error) {
 	}
 
 	link := models.Link{
-		Shortcode: shortCode,
+		ShortCode: shortCode,
 		LongURL:   longURL,
 	}
 	err = s.linkRepo.CreateLink(&link)
