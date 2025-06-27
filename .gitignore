@@ -1,2 +1,4 @@
 .DS_Store
 .idea/
+url-shortener
+url_shortener.db
