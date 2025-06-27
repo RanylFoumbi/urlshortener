@@ -1,9 +1,8 @@
 package repository
 
 import (
-	"fmt"
+	"urlshortener/internal/models"
 
-	"github.com/axellelanca/urlshortener/internal/models"
 	"gorm.io/gorm"
 )
 

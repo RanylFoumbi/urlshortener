@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/axellelanca/urlshortener/internal/models"
-	"github.com/axellelanca/urlshortener/internal/services"
+	"urlshortener/internal/models"
+	"urlshortener/internal/services"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm" // Pour gérer gorm.ErrRecordNotFound
 )

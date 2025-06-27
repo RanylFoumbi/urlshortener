@@ -1,9 +1,8 @@
 package repository
 
 import (
-	"fmt"
+	"urlshortener/internal/models"
 
-	"github.com/axellelanca/urlshortener/internal/models"
 	"gorm.io/gorm"
 )
 
@@ -39,6 +38,6 @@ func (r *GormClickRepository) CountClicksByLinkID(linkID uint) (int, error) {
 	var count int64 // GORM retourne un int64 pour les décomptes
 	// TODO : Utiliser GORM pour compter les enregistrements dans la table 'clicks'
 	// où 'LinkID' correspond à l'ID de lien fourni.
-	
+
 	return int(count), nil // Convert the int64 count to an int
 }
