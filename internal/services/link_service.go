@@ -22,6 +22,10 @@ const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 // Elle détient linkRepo qui est une référence vers une interface LinkRepository.
 // IMPORTANT : Le champ doit être du type de l'interface (non-pointeur).
 
+type LinkService struct {
+	linkRepo repository.LinkRepository
+}
+
 
 // NewLinkService crée et retourne une nouvelle instance de LinkService.
 func NewLinkService(linkRepo repository.LinkRepository) *LinkService {
@@ -30,11 +34,25 @@ func NewLinkService(linkRepo repository.LinkRepository) *LinkService {
 	}
 }
 
-// TODO Créer la méthode GenerateShortCode
 // GenerateShortCode est une méthode rattachée à LinkService
 // Elle génère un code court aléatoire d'une longueur spécifiée. Elle prend une longueur en paramètre et retourne une string et une erreur
 // Il utilise le package 'crypto/rand' pour éviter la prévisibilité.
 // Je vous laisse chercher un peu :) C'est faisable en une petite dizaine de ligne
+func (s *LinkService) GenerateShortCode() (string, error) {
+	length := 10
+	bytes := make([]byte, length)
+
+	if _, err := rand.Read(bytes); err != nil {
+		return "", fmt.Errorf("erreur lors de la génération aléatoire: %w", err)
+	}
+
+	shortCode := make([]byte, length)
+	for i := 0; i < length; i++ {
+		shortCode[i] = charset[bytes[i]%byte(len(charset))]
+	}
+
+	return string(shortCode), nil
+}
 
 
 // CreateLink crée un nouveau lien raccourci.
